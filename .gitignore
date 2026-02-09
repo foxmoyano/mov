@@ -1,0 +1,41 @@
+# ==========================================
+# IDE - Visual Studio Code
+# ==========================================
+.vscode/
+# A veces VS Code crea archivos temporales de historial o workspace
+.history/
+*.code-workspace
+
+# ==========================================
+# Backend (Rust)
+# ==========================================
+backend/target/
+# Ignorar el ejecutable compilado si por error sale de target
+backend/backend
+# Seguridad: Variables de entorno
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# ==========================================
+# Frontend (Node/Web)
+# ==========================================
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+# Builds de producción
+frontend/dist/
+frontend/build/
+# Seguridad: Variables de entorno frontend
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+
+# ==========================================
+# Sistema y Logs
+# ==========================================
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
