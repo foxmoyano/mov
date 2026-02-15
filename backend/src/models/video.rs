@@ -7,7 +7,7 @@ use rust_decimal::Decimal;
 pub struct Video {
     pub id: Uuid,
     pub title: String,
-    pub file_extension: Option<String>,
-    pub file_size_mb: Option<Decimal>,
-    pub created_at: Option<chrono::NaiveDateTime>,
+    pub extension: Option<String>,
+    pub size_mb: Option<Decimal>,
+    pub published_at: Option<chrono::NaiveDateTime>,
 }
