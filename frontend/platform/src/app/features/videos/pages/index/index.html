@@ -1,0 +1,24 @@
+<div class="videos-container">
+  <header>
+    <h1>Videos</h1>
+    <div class="header-actions">
+      <p-button label="Nuevo Video" icon="pi pi-plus" severity="primary" />
+      <p-button label="Secondary" severity="secondary" />
+      <p-button label="Info" severity="info" />
+    </div>
+  </header>
+
+  <!-- Card de ejemplo para ver el tema -->
+  <p-card header="Gestión de Videos" subheader="Panel de control">
+    <p>Total de videos: {{ count() }}</p>
+    <p>Estado: {{ loading() ? 'Cargando...' : 'Listo' }}</p>
+  </p-card>
+
+  <!-- Dashboard siempre visible para que dispare el evento lazyLoad -->
+  <mov-dashboard
+    [videos]="store.videos()"
+    [loading]="store.loading()"
+    [total]="store.count()"
+    (lazyLoad)="onLazyLoad($event)"
+  />
+</div>

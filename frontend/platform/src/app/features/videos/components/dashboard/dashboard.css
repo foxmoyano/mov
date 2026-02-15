@@ -1,0 +1,39 @@
+.videos-table .p-datatable-thead > tr > th {
+  text-align: left;
+  padding: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.videos-table .p-datatable-tbody > tr > td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+}
+
+.videos-table .p-datatable-tbody > tr {
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.videos-table .p-datatable-tbody > tr:hover {
+  background: var(--surface-hover);
+}
+
+.videos-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.videos-table .p-paginator {
+  padding: 0.5rem 1rem;
+}
+
+.videos-table th:first-child,
+.videos-table td:first-child {
+  padding-left: 1.5rem;
+}
+
+.videos-table th:last-child,
+.videos-table td:last-child {
+  padding-right: 1.5rem;
+}
