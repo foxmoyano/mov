@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 pub struct PageQuery {
     pub page: Option<i64>,
     pub size: Option<i64>,
+    pub title: Option<String> // 👈 nuevo filtro
 }
 
 #[derive(Debug, Serialize)]
