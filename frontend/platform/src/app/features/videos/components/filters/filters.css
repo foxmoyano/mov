@@ -1,0 +1,149 @@
+:host {
+  display: block;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+/* Container principal - sin background para integrarse mejor */
+.filters-container {
+  border-radius: 12px;
+  padding: 0;
+}
+
+/* Card de filtros - estilo más sutil */
+.filters-card {
+  border-radius: 8px;
+  box-shadow: none !important;
+  border: 2px solid #f3f4f6 !important;
+  overflow: hidden;
+  background: #fafbfc !important;
+}
+
+.filters-card .p-card-body {
+  padding: 1.5rem !important;
+}
+
+.filters-card .p-card-content {
+  padding: 0 !important;
+}
+
+/* Header de filtros */
+.filters-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.header-icon {
+  font-size: 1.5rem;
+  color: #4b5563;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  letter-spacing: 0.02em;
+}
+
+/* Labels mejorados */
+.filter-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.label-icon {
+  color: #667eea;
+  font-size: 1rem;
+}
+
+/* Inputs mejorados */
+.filter-input {
+  transition: all 0.3s ease;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  padding: 0.75rem !important;
+  font-size: 0.95rem !important;
+}
+
+.filter-input:hover {
+  border-color: #667eea !important;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15) !important;
+}
+
+.filter-input:focus,
+.filter-input:focus-visible {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2) !important;
+  outline: none !important;
+}
+
+/* Input Number */
+.filter-input-number input {
+  transition: all 0.3s ease;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  padding: 0.75rem !important;
+  font-size: 0.95rem !important;
+}
+
+.filter-input-number input:hover {
+  border-color: #667eea !important;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15) !important;
+}
+
+.filter-input-number input:focus,
+.filter-input-number input:focus-visible {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2) !important;
+  outline: none !important;
+}
+
+/* Botones mejorados */
+.search-button .p-button {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.search-button .p-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4) !important;
+}
+
+.clear-button .p-button {
+  border: 2px solid #6b7280 !important;
+  border-radius: 8px !important;
+  color: #6b7280 !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease !important;
+}
+
+.clear-button .p-button:hover {
+  background: #f3f4f6 !important;
+  border-color: #374151 !important;
+  color: #374151 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}

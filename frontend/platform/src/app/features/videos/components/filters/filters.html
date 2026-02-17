@@ -1,1 +1,54 @@
-<p>filters works!</p>
+<div class="filters-container">
+  <p-card class="filters-card">
+    <div class="filters-header">
+      <i class="pi pi-filter header-icon"></i>
+      <h3 class="header-title">Filtros de Búsqueda</h3>
+    </div>
+    
+    <div class="flex flex-wrap gap-4 align-items-end">
+      <div class="flex flex-column gap-2 flex-grow-1">
+        <label for="title" class="filter-label">
+          <i class="pi pi-video label-icon"></i>
+          Título
+        </label>
+        <input 
+          pInputText 
+          id="title" 
+          [(ngModel)]="title" 
+          placeholder="Ej: Star Wars..." 
+          class="w-full filter-input" />
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label for="year" class="filter-label">
+          <i class="pi pi-calendar label-icon"></i>
+          Año
+        </label>
+        <p-inputNumber 
+          id="year" 
+          [(ngModel)]="year" 
+          [useGrouping]="false" 
+          placeholder="YYYY"
+          inputId="integeronly"
+          class="filter-input-number" />
+      </div>
+
+      <div class="flex gap-2">
+        <p-button 
+          label="Buscar" 
+          icon="pi pi-search" 
+          (onClick)="onSearch()" 
+          severity="primary"
+          class="search-button" />
+        
+        <p-button 
+          label="Limpiar" 
+          icon="pi pi-filter-slash" 
+          (onClick)="onClear()" 
+          severity="secondary" 
+          outlined="true"
+          class="clear-button" />
+      </div>
+    </div>
+  </p-card>
+</div>

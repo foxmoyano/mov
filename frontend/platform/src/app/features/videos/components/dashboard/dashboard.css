@@ -1,21 +1,48 @@
+.dashboard-container {
+  padding: 0;
+  background: transparent;
+  border-radius: 12px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.videos-table {
+  border-radius: 8px;
+  overflow: visible;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: white;
+  width: 100%;
+}
+
 .videos-table .p-datatable-thead > tr > th {
   text-align: left;
-  padding: 1rem;
-  font-weight: 600;
+  padding: 1rem 1rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #111827 !important;  
+  background-color: #e5e7eb !important;
+  border-bottom: none !important;
   white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
 }
 
 .videos-table .p-datatable-tbody > tr > td {
-  padding: 0.85rem 1rem;
+  padding: 0.65rem 1rem;
   vertical-align: middle;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
 }
 
 .videos-table .p-datatable-tbody > tr {
-  border-bottom: 1px solid var(--surface-border);
+  border-bottom: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
 }
 
 .videos-table .p-datatable-tbody > tr:hover {
-  background: var(--surface-hover);
+  background: linear-gradient(90deg, #f0f4ff 0%, #e6f0ff 100%) !important;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
 }
 
 .videos-table td {
@@ -25,7 +52,9 @@
 }
 
 .videos-table .p-paginator {
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-top: 1px solid #dee2e6;
 }
 
 .videos-table th:first-child,
@@ -36,4 +65,86 @@
 .videos-table th:last-child,
 .videos-table td:last-child {
   padding-right: 1.5rem;
+}
+
+/* Columnas */
+.col-title {
+  width: 35%;  
+}
+
+.col-type {
+  width: 8%;
+}
+
+.col-size,
+.col-duration {
+  width: 10%;
+}
+
+.col-quality,
+.col-resolution {
+  width: 11%;
+}
+
+.col-date {
+  width: 15%;
+}
+
+/* Estilos para el título del video */
+.video-title {
+  font-weight: 500;
+  color: #2c3e50;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title-icon {
+  color: #667eea;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Badges y etiquetas */
+.badge-type {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+.badge-quality {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+/* Texto auxiliar */
+.text-muted {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.text-secondary {
+  color: #8b5cf6;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Mejorar striped rows */
+.videos-table .p-datatable-tbody > tr.p-row-odd {
+  background: #f9fafb;
+}
+
+.videos-table .p-datatable-tbody > tr.p-row-even {
+  background: #ffffff;
 }

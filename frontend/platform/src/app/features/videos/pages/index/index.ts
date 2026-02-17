@@ -4,14 +4,16 @@ import { Dashboard } from '../../components/dashboard/dashboard';
 import { TableLazyLoadEvent } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { VideoFilters } from "../../components/filters/filters";
 
 @Component({
-  selector: 'mov-index',
-  imports: [
-    Dashboard,
+  selector: 'mov-video-index',
+  imports: [    
     ButtonModule,
-    CardModule
-  ],
+    CardModule,
+    Dashboard,
+    VideoFilters
+],
   templateUrl: './index.html',
   styleUrl: './index.css',
 })
@@ -25,15 +27,17 @@ export class Index {
   readonly count = this.store.count;
 
   onLazyLoad(event: TableLazyLoadEvent) {
-    // PrimeNG dispara este evento automáticamente al inicializar
+    // PrimeNG dispara este evento automáticamente al inicializar o paginar
     const first = event.first ?? 0;
     const rows  = event.rows ?? 10;
     const page  = Math.floor(first / rows);
+    // Actualiza el estado de paginación en el store
+    this.store.updatePagination({ page, rows, first });
+  }
 
-    console.log('Lazy load triggered:', { page, rows, first });
-    
-    // Cargar videos - se puede extender para soportar paginación backend
-    this.store.loadVideos(page, rows);
-  }  
+  onFilter(filters: any) {
+    // Actualiza los filtros en el store y resetea la paginación
+    this.store.updateFilters(filters);
+  }
 
 }

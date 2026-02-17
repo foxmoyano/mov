@@ -2,9 +2,9 @@
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
 
-/* Modo oscuro activado */
-html.darkmode {
-  color-scheme: dark;
+/* Forzar modo claro (ignorar tema del sistema) */
+:root {
+  color-scheme: light only;
 }
 
 /* Opcional: ajustar el fondo del body */

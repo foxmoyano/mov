@@ -1,16 +1,15 @@
+import { Filters } from "../../core/models/filters.model";
+
 export interface Video {
   id: string;
   title: string;
   extension: string;
-  size_mb: string;
+  size_mb: number;
   published_at: string;
 }
 
-
-// Interfaz para la respuesta paginada de videos
-export interface VideosResponse {
-  items: Video[];
-  total: number;
-  page: number;
-  size: number;
+// Para videos usamos la base, pero estamos listos para extenderla
+// Si mañana necesitas filtrar por 'codec', lo agregas aquí.
+export interface VideoFilters extends Filters {
+  // extension?: string; (ejemplo de campo extra futuro)
 }

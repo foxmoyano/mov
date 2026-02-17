@@ -1,35 +1,50 @@
-<section>
+<section class="dashboard-container">
   <p-table
     [value]="videos()"
     [lazy]="true"
     (onLazyLoad)="onLazyLoad($event)"
     [paginator]="true"
-    [rows]="10"
+    [rows]="rows()"
     [totalRecords]="total()"
     [loading]="loading()"
     [rowsPerPageOptions]="[10, 20, 50]"
     [showCurrentPageReport]="true"
+    [first]="first()"
+    [stripedRows]="true"
     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords}"
     styleClass="videos-table"
-    [tableStyle]="{ 'min-width': '100%', 'table-layout': 'fixed' }"     
+    [tableStyle]="{ 'width': '100%', 'table-layout': 'fixed' }"    
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="title" scope="col">
+        <th class="col-title" pSortableColumn="title" scope="col">
           Título <p-sortIcon field="title"></p-sortIcon>
         </th>
-        <th class="text-center" scope="col">Tipo</th>
-        <th class="text-center" scope="col">Tamaño</th>
-        <th class="text-center" scope="col">Publicado</th>
+        <th class="col-type text-center" scope="col">Tipo</th>
+        <th class="col-size text-center" scope="col">Tamaño</th>        
+        <th class="col-duration text-center" scope="col">Duración</th>
+        <th class="col-quality text-center" scope="col">Calidad</th>
+        <th class="col-resolution text-center" scope="col">Resolución</th>
+        <th class="col-date text-center" scope="col">Publicado</th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-video>
       <tr>
-        <td>{{ video.title }}</td>
-        <td class="text-center">{{ video.extension }}</td>
-        <td class="text-center">{{ video.size_mb }} MB</td>
-        <td class="text-center">{{ video.published_at}}</td>
+        <td class="video-title">
+          <i class="pi pi-play-circle title-icon"></i>
+          {{ video.title }}
+        </td>
+        <td class="text-center">
+          <span class="badge-type">{{ video.extension.replace('.', '') | uppercase }}</span>
+        </td>
+        <td class="text-center text-muted">{{ video.size_mb | number:'1.0-0'}} MB</td>
+        <td class="text-center text-muted">{{ video.duration_seconds }} seg</td>
+        <td class="text-center">
+          <span class="badge-quality">{{ video.resolution }}</span>
+        </td>
+        <td class="text-center text-muted">{{ video.video_height }}</td>
+        <td class="text-center text-muted">{{ video.published_at | date:'dd-MM-yyyy' }}</td>
       </tr>
     </ng-template>
   </p-table>
