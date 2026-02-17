@@ -10,4 +10,7 @@ pub struct Video {
     pub extension: Option<String>,
     pub size_mb: Option<Decimal>,
     pub published_at: Option<chrono::NaiveDateTime>,
+    pub duration_seconds: Option<i32>,
+    pub resolution: Option<String>,
+    pub video_height: Option<String>    
 }

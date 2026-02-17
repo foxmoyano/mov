@@ -56,7 +56,7 @@ pub async fn get_videos(
     // DATA (ITEMS)
     // =========================
     let mut data_builder = QueryBuilder::new(
-        "SELECT id, title, extension, size_mb, published_at FROM videos WHERE 1=1"
+        "SELECT id, title, extension, size_mb, published_at, duration_seconds, resolution, video_height FROM videos WHERE 1=1"
     );
 
     if let Some(title) = &q.title {
