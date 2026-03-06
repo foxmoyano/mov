@@ -1,7 +1,10 @@
 target
 .git
+Dockerfile
+**/*.log
+node_modules
+dist
 .vscode
 .idea
-**/*.log
 .env
 .env.*

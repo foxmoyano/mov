@@ -4,45 +4,82 @@ mod dto;
 mod routes;
 mod models;
 mod handlers;
+mod storage;
 
-use std::{env, net::SocketAddr};
+use std::net::SocketAddr;
 use tokio::net::TcpListener;
+use tracing::{info, warn};
+use tracing_subscriber::EnvFilter;
 
 #[tokio::main]
 async fn main() {
-    // Logs
-    tracing_subscriber::fmt::init();
-
-    // Carga .env (en prod/K8s no falla)
     dotenv::dotenv().ok();
+    init_tracing();
 
-    // DB
-    let pool = db::init().await.expect("Failed to connect to DB");
+    info!("starting backend...");
 
-    // Router
-    let app = routes::create_routes(pool);
+    let settings = config::Settings::from_env();
 
-    // Host y port desde env (con defaults)
-    let host = env::var("HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
-    let port = env::var("PORT").unwrap_or_else(|_| "3000".to_string());
+    info!("initializing db pool...");
+    let pool = db::init(&settings.database_url)
+        .await
+        .expect("Failed to connect to DB");
+    info!("db ok");
 
-    let addr: SocketAddr = format!("{}:{}", host, port)
+    let s3 = storage::build_client();
+
+    let state = routes::AppState {
+        pool,
+        settings: settings.clone(),
+        s3,
+    };
+
+    let app = routes::create_routes(state);
+
+    let addr: SocketAddr = format!("{}:{}", settings.host, settings.port)
         .parse()
         .expect("Invalid HOST or PORT");
 
-    tracing::info!("🚀 Server started at http://{}", addr);
+    info!("binding {}", addr);
+    let listener = TcpListener::bind(addr).await.expect("bind failed");
 
-    let listener = TcpListener::bind(addr).await.unwrap();
-
-    axum::serve(listener, app)
+    info!("serving...");
+    axum::serve(listener, app.into_make_service())
         .with_graceful_shutdown(shutdown_signal())
         .await
-        .unwrap();
+        .expect("server error");
+
+    warn!("server stopped");
+}
+
+fn init_tracing() {
+    let filter = EnvFilter::try_from_default_env()
+        .unwrap_or_else(|_| EnvFilter::new("info,tower_http=info,sqlx=warn"));
+
+    tracing_subscriber::fmt()
+        .with_env_filter(filter)
+        .with_target(false)
+        .compact()
+        .init();
 }
 
 async fn shutdown_signal() {
-    tokio::signal::ctrl_c()
-        .await
-        .expect("Failed to install CTRL+C signal handler");
-    tracing::info!("💤 Shutting down gracefully...");
+    #[cfg(unix)]
+    {
+        use tokio::signal::unix::{signal, SignalKind};
+
+        let mut sigterm = signal(SignalKind::terminate()).expect("Failed to install SIGTERM handler");
+        let mut sigint = signal(SignalKind::interrupt()).expect("Failed to install SIGINT handler");
+
+        tokio::select! {
+            _ = sigterm.recv() => tracing::info!("SIGTERM received, shutting down..."),
+            _ = sigint.recv() => tracing::info!("SIGINT received, shutting down..."),
+        }
+    }
+
+    #[cfg(not(unix))]
+    {
+        tokio::signal::ctrl_c().await.expect("Failed to install Ctrl+C handler");
+        tracing::info!("Ctrl+C received, shutting down...");
+    }
 }

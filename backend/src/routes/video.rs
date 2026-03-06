@@ -1,9 +1,8 @@
 use axum::{routing::get, Router};
-use sqlx::PgPool;
-
 use crate::handlers::video::get_videos;
+use crate::routes::AppState;
 
-pub fn routes() -> Router<PgPool> {
+pub fn routes() -> Router<AppState> {
     Router::new()
         .route("/", get(get_videos))
 }

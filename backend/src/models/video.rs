@@ -12,5 +12,6 @@ pub struct Video {
     pub published_at: Option<chrono::NaiveDateTime>,
     pub duration_seconds: Option<i32>,
     pub resolution: Option<String>,
-    pub video_height: Option<String>    
+    pub video_height: Option<String>,
+    pub image_url: Option<String>
 }

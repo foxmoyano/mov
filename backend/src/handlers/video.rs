@@ -1,16 +1,22 @@
-use axum::{extract::{Query, State}, Json};
-use sqlx::{PgPool, QueryBuilder};
+use axum::{
+    extract::{Query, State},
+    http::StatusCode,
+    Json,
+};
+use sqlx::QueryBuilder;
 
-use crate::models::video::Video;
 use crate::dto::page::{PageQuery, PageResponse};
+use crate::models::video::Video;
+use crate::routes::AppState; // ajusta el path si AppState está en otro módulo
 
 const DEFAULT_SIZE: i64 = 10;
 const MAX_SIZE: i64 = 100;
 
 pub async fn get_videos(
-    State(pool): State<PgPool>,
+    State(state): State<AppState>,
     Query(q): Query<PageQuery>,
-) -> Json<PageResponse<Video>> {
+) -> Result<Json<PageResponse<Video>>, (StatusCode, String)> {
+    let pool = &state.pool;
 
     // =========================
     // PAGINACIÓN
@@ -35,35 +41,40 @@ pub async fn get_videos(
     // =========================
     // COUNT (TOTAL)
     // =========================
-    let mut count_builder =
-        QueryBuilder::new("SELECT COUNT(*) FROM videos WHERE 1=1");
+    let mut count_builder = QueryBuilder::new("SELECT COUNT(*) FROM videos WHERE 1=1");
 
     if let Some(title) = &q.title {
-        if !title.trim().is_empty() {
+        let t = title.trim();
+        if !t.is_empty() {
             count_builder
                 .push(" AND title ILIKE ")
-                .push_bind(format!("%{}%", title));
+                .push_bind(format!("%{}%", t));
         }
     }
 
     let total: i64 = count_builder
         .build_query_scalar()
-        .fetch_one(&pool)
+        .fetch_one(pool)
         .await
-        .unwrap_or(0);
+        .map_err(|e| {
+            tracing::error!(error=?e, "DB error (count)");
+            (StatusCode::INTERNAL_SERVER_ERROR, "db error (count)".to_string())
+        })?;
 
     // =========================
     // DATA (ITEMS)
     // =========================
     let mut data_builder = QueryBuilder::new(
-        "SELECT id, title, extension, size_mb, published_at, duration_seconds, resolution, video_height FROM videos WHERE 1=1"
+        "SELECT id, title, extension, size_mb, published_at, duration_seconds, resolution, video_height, image_url \
+         FROM videos WHERE 1=1",
     );
 
     if let Some(title) = &q.title {
-        if !title.trim().is_empty() {
+        let t = title.trim();
+        if !t.is_empty() {
             data_builder
                 .push(" AND title ILIKE ")
-                .push_bind(format!("%{}%", title));
+                .push_bind(format!("%{}%", t));
         }
     }
 
@@ -76,17 +87,12 @@ pub async fn get_videos(
 
     let items: Vec<Video> = data_builder
         .build_query_as()
-        .fetch_all(&pool)
+        .fetch_all(pool)
         .await
-        .unwrap_or_default();
+        .map_err(|e| {
+            tracing::error!(error=?e, "DB error (items)");
+            (StatusCode::INTERNAL_SERVER_ERROR, "db error (items)".to_string())
+        })?;
 
-    // =========================
-    // RESPONSE
-    // =========================
-    Json(PageResponse {
-        items,
-        total,
-        page,
-        size,
-    })
+    Ok(Json(PageResponse { items, total, page, size }))
 }
