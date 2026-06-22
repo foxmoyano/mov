@@ -15,6 +15,7 @@ pub struct AppState {
     pub pool: PgPool,
     pub settings: Settings,
     pub s3: S3Client,
+    pub minio_bucket: String,
 }
 
 pub fn create_routes(state: AppState) -> Router {
