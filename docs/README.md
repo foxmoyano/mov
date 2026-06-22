@@ -23,47 +23,48 @@ Constitution
 
 ```text
 docs/
-├── governance/constitution.md
-├── product/
-│   ├── vision.md
-│   ├── glossary.md
-│   └── roadmap.md
-├── features/NNN-nombre-feature/
-├── adr/
-├── manuals/
-└── templates/
+├── 00-governance/01-constitution.md
+├── 01-product/
+│   ├── 01-vision.md
+│   ├── 02-glossary.md
+│   └── 03-roadmap.md
+├── 02-features/NNN-nombre-feature/
+├── 03-adr/
+├── 04-manuals/
+└── 05-templates/
 ```
 
 ## Artefactos globales
 
-- [Constitución](governance/constitution.md): principios obligatorios para todas las features.
-- [Visión](product/vision.md): problema, actores, objetivos y límites del producto.
-- [Glosario](product/glossary.md): lenguaje común del dominio.
-- [Roadmap](product/roadmap.md): features candidatas, sin autorizar su implementación.
-- [ADR](adr/README.md): decisiones transversales vigentes.
-- [Manuales](manuals/README.md): comportamiento observable para usuarios y operación funcional.
-- [Plantillas](templates/README.md): estructura reutilizable de nuevos paquetes.
+- [Constitución](00-governance/01-constitution.md): principios obligatorios para todas las features.
+- [Visión](01-product/01-vision.md): problema, actores, objetivos y límites del producto.
+- [Glosario](01-product/02-glossary.md): lenguaje común del dominio.
+- [Roadmap](01-product/03-roadmap.md): features candidatas, sin autorizar su implementación.
+- [Features](02-features/00-README.md): paquetes SDD del producto.
+- [ADR](03-adr/00-README.md): decisiones transversales vigentes.
+- [Manuales](04-manuals/00-README.md): comportamiento observable para usuarios y operación funcional.
+- [Plantillas](05-templates/00-README.md): estructura reutilizable de nuevos paquetes.
 
 ## Paquete de una feature
 
-Cada cambio usa `docs/features/NNN-nombre-feature/` y contiene:
+Cada cambio usa `docs/02-features/NNN-nombre-feature/` y contiene:
 
 | Orden | Artefacto | Propósito |
 |---:|---|---|
-| 1 | `spec.md` | Historias, requisitos y escenarios de aceptación |
-| 2 | `clarifications.md` | Decisiones sobre ambigüedades |
-| 3 | `checklists/requirements.md` | Calidad de la especificación |
-| 4 | `research.md` | Contexto, alternativas y fundamentos |
-| 5 | `plan.md` | Traducción técnica de la spec |
-| 6 | `architecture.md`, `data-model.md`, `contracts/`, `ui/`, `configuration.md` | Diseño derivado |
-| 7 | `tasks.md` | Trabajo ordenado y trazable |
-| 8 | `analysis.md` | Cobertura y consistencia entre artefactos |
-| 9 | `implementation.md` | Evidencia y desviaciones de implementación |
-| 10 | `testing/` | Estrategia y casos exclusivamente documentales |
-| 11 | `quickstart.md` | Recorrido funcional esperado, sin ejecución |
-| 12 | `release.md`, `deployment.md`, `operations.md` | Entrega, reversión y feedback |
+| 1 | `01-spec.md` | Historias, requisitos y escenarios de aceptación |
+| 2 | `02-clarifications.md` | Decisiones sobre ambigüedades |
+| 3 | `03-checklists/01-requirements.md` | Calidad de la especificación |
+| 4 | `04-research.md` | Contexto, alternativas y fundamentos |
+| 5 | `05-plan.md` | Traducción técnica de la spec |
+| 6 | `06-architecture.md` a `10-configuration.md` | Diseño derivado |
+| 7 | `11-tasks.md` | Trabajo ordenado y trazable |
+| 8 | `12-analysis.md` | Cobertura y consistencia entre artefactos |
+| 9 | `13-implementation.md` | Evidencia y desviaciones de implementación |
+| 10 | `14-testing/` | Estrategia y casos exclusivamente documentales |
+| 11 | `15-quickstart.md` | Recorrido funcional esperado, sin ejecución |
+| 12 | `16-release.md` a `18-operations.md` | Entrega, reversión y feedback |
 
-La feature actual es [001-video-catalog](features/001-video-catalog/README.md).
+La feature actual es [001-video-catalog](02-features/001-video-catalog/00-README.md).
 
 ## Gates
 
@@ -76,7 +77,7 @@ La feature actual es [001-video-catalog](features/001-video-catalog/README.md).
 
 ## Testing documental
 
-`testing/` especifica estrategia, casos, aceptación y requisitos no funcionales. Estos artefactos describen qué debería comprobar un proceso autorizado, pero no crean archivos de pruebas, fixtures, mocks o scripts ejecutables. El agente no ejecuta pruebas ni compilaciones.
+`14-testing/` especifica estrategia, casos, aceptación y requisitos no funcionales. Estos artefactos describen qué debería comprobar un proceso autorizado, pero no crean archivos de pruebas, fixtures, mocks o scripts ejecutables. El agente no ejecuta pruebas ni compilaciones.
 
 ## Estados
 
