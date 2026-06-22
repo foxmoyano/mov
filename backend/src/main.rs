@@ -4,6 +4,7 @@ mod dto;
 mod routes;
 mod models;
 mod handlers;
+mod services;
 mod storage;
 
 use std::net::SocketAddr;
@@ -27,11 +28,13 @@ async fn main() {
     info!("db ok");
 
     let s3 = storage::build_client();
+    let minio_bucket = std::env::var("MINIO_BUCKET").expect("MINIO_BUCKET must be set");
 
     let state = routes::AppState {
         pool,
         settings: settings.clone(),
         s3,
+        minio_bucket,
     };
 
     let app = routes::create_routes(state);
