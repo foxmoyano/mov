@@ -23,4 +23,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY --from=builder /app/target/release/backend /usr/local/bin/backend
 
 EXPOSE 3000
+USER 65532:65532
 ENTRYPOINT ["/usr/local/bin/backend"]
